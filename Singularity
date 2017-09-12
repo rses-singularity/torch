@@ -49,7 +49,7 @@ From: nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 %post
 	#Post setup script
 
-	#Make environment file executable
+	#Load environment variables
 	. /environment
 
 	#Default mount paths
