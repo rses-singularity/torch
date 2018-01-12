@@ -60,7 +60,9 @@ From: nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 
 	#Updating and getting required packages
 	apt-get update
-	apt-get install -y wget git cmake libreadline-dev unzip
+	apt-get install -y wget git cmake
+	apt-get install -y libreadline-dev
+	apt-get install -y unzip
 
 	#Creates a build directory
 	BUILD_ROOT="/build"
@@ -79,14 +81,18 @@ From: nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
 	cd $BUILD_ROOT
 
 
+
 	#Download and install torch
 	git clone https://github.com/torch/distro.git /usr/local/torch --recursive
-	cd /usr/local/torch; bash install-deps;
+	cd /usr/local/torch
+	#Remove all the sudo commands from install deps
+	sed -i  "s/sudo //" install-deps
+	bash install-deps
 	./install.sh
 
 
 	luarocks install --server=http://luarocks.org/dev paths
-	luarocks install tds
+	luarocks install tds bit32
 
 	apt-get install zlib1g-dev
 	luarocks install lua-zlib
